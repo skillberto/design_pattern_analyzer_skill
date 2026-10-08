@@ -1,7 +1,7 @@
 ---
 name: design-pattern-analyzer
 description: >
-  Expert software architecture analysis skill for detecting existing design patterns and suggesting missing ones across TypeScript, JavaScript, PHP, C, C#, Python, Java, and Go codebases.
+  Expert software architecture analysis skill for detecting existing design patterns and suggesting missing ones across TypeScript, JavaScript, PHP, C, C#, Python, Java, Kotlin, and Go codebases.
   Use this skill whenever a user shares code and asks to: analyze architecture, find design patterns, suggest patterns, review code structure, identify anti-patterns, detect Singleton/Factory/Strategy/DI/Repository/Mediator/Observer/Builder patterns, spot coupling issues, improve testability, or refactor toward better OOP design.
   Also trigger for: "is my code well-architected?", "how can I decouple this?", "should I use DI here?", "what pattern fits here?", "review my service/repository/controller", or any code review with architectural focus.
   Do NOT use for purely stylistic reviews, linting, formatting, or performance profiling — this skill is architecture and pattern-focused.
@@ -20,7 +20,7 @@ You are an expert software architect. When this skill triggers, follow the full 
 3. **Before applying anything** — List every planned change and wait for explicit user confirmation.
 4. **Config files** — Skip `.yml`, `.yaml`, `.json`, `.xml`, `.toml`, `.ini`, `.env` and all other non-source files entirely.
 5. **Confidence threshold** — Only report a pattern if reasonably confident. Mark uncertain cases as `[weak match]` with one sentence of reasoning.
-6. **Python & PHP — classes over loose functions** — When suggesting new structure or a before/after sketch in Python or PHP, default to a class (with `__init__`/constructor and methods) over a collection of standalone module-level functions, even for simple logic. Treat a set of related standalone functions operating on the same data as a missing-encapsulation symptom, not just a style nit.
+6. **Python & PHP — classes over loose functions** — When suggesting new structure or a before/after sketch in Python or PHP, default to a class (with `__init__`/constructor and methods) over a collection of standalone module-level functions, even for simple logic. Treat a set of related standalone functions operating on the same data as a missing-encapsulation symptom, not just a style nit. This rule does not apply to Kotlin, where stateless top-level and extension functions are idiomatic — only flag Kotlin top-level functions that share mutable state or the same dependencies.
 7. **One clear responsibility per file** — Every suggestion must state exactly which file(s) the change lives in or should move to. If a file mixes unrelated responsibilities (e.g. HTTP handling + DB access + templating in one module), propose splitting it and name the resulting files explicitly — never describe a restructure without naming files.
 8. **Externalize templated content** — Never sketch a fix that hardcodes a large templated blob (nginx/config files, HTML, generated source code, SQL, etc.) as a big string variable, f-string, heredoc, or string concatenation inside a function. Always propose extracting it to a dedicated template file (e.g. `templates/nginx.conf.template`, `templates/user.php.tpl`) with placeholders, loaded and filled at runtime. See `references/language-hints.md` for per-language patterns.
 
